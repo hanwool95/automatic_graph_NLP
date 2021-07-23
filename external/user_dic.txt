@@ -1,0 +1,40 @@
+이탈리아	NNP
+이태리	NNP
+미국	NNP
+USA	NNP
+United State of America	NNP
+중국	NNP
+일본	NNP
+한국	NNP
+대한민국	NNP
+우리나라	NNP
+Korea	NNP
+korea	NNP
+republic of korea	NNP
+south korea	NNP
+확진	NNP
+확진자	NNP
+누적 확진	NNP
+사망	NNP
+사망자	NNP
+누적 사망	NNP
+러시아	NNP
+프랑스	NNP
+브라질	NNP
+영국	NNP
+백신	NNP
+접종	NNP
+접종률	NNP
+박원순	NNP
+원순	NNP
+민주당	NNP
+더민	NNP
+더불어민주당	NNP
+오세훈	NNP
+세훈	NNP
+새누리당	NNP
+한나라당	NNP
+자유한국당	NNP
+한국당	NNP
+국민의힘	NNP
+국힘	NNP

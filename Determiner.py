@@ -1,12 +1,14 @@
 from sorting_text import sorting_text_n_num_v
+from external.external_file_setting import dic_creating
 import re, datetime
 
 setting_date = [datetime.datetime(2021, 1, 1), datetime.datetime.now()]
 
-increasing_list = ['늘어나다', '때문']
+syn_dict, state_dict = dic_creating()
 
-x_axle_list = ['철수', '영희']
-y_axle_list = ['확진']
+bar_list = ['국가', '이름']
+
+increasing_list = ['늘어나다', '때문']
 
 def determine_graph(noun, number, verb):
     graph_info = "line_graph"
@@ -29,13 +31,24 @@ def determine_graph(noun, number, verb):
 
     if noun:
         for word in noun:
-            if word in x_axle_list:
-                x_axle_info.append(word)
-            elif word in y_axle_list:
-                y_axle_info.append(word)
+            if word in state_dict.keys():
+                state = state_dict[word]
+                syn_word = syn_dict[word]
+                if state == "y축":
+                    if syn_word not in y_axle_info:
+                        y_axle_info.append(syn_dict[syn_word])
+                else:
+                    if syn_word not in x_axle_info:
+                        x_axle_info.append(syn_dict[syn_word])
+
 
     if len(x_axle_info) > 1:
-        graph_info = 'bar_graph'
+        bar_count = 0
+        for x in x_axle_info:
+            if state_dict[x] in bar_list:
+                bar_count += 1
+        if bar_count > 1:
+            graph_info = 'bar_graph'
 
     if not y_axle_info:
         if date_info != setting_date or x_axle_info != []:
