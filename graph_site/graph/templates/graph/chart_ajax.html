@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% load static %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+{% for data in graph_list %}
+{{ data.comments }}<br>
+    <button name="ajaxButton" id="btn{{data.id}}" type="button" value="{{data.id}}">그래프 확인</button>
+<br><br>
+{% endfor %}
+<script>
+
+    $("[id^=btn]").on('click', function(event) {
+        var id = $(this).attr("id");
+        var number = id.replace("btn", "");
+        makeRequest(number)
+    });
+
+
+function makeRequest(x) {
+
+    var pop = window.open("about:blank","content","width=500,height=400");
+    var site = "http://127.0.0.1:8000/graph/specific/";
+    var sitename = site+x;
+    $.ajax({
+      success:function(data){
+         pop.location.href=sitename;
+     }
+    });
+
+  }
+
+
+</script>
+</body>
+</html>

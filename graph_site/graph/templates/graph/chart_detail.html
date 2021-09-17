@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% load static %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+
+
+<div>
+    <img src="data:image/png;base64, {{graph}}" style="width:500px">
+</div>
+<br>
+<!--
+{% for data in graph_list %}<br>
+{{ data }}<br>
+
+{% endfor %}
+<script src="{% static 'chart_detail.js' %}"></script>
+-->
+</body>
+</html>

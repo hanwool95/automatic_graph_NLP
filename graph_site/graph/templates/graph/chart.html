@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% load static %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+
+
+<div style="width:800px">
+    <canvas id="myChart"></canvas>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+<canvas id="line-chart" width="300" height="250"></canvas>
+
+{% for data in graph_list %}
+{{ data.comments }}<br>
+<form action="{% url 'graph:graph_specific' data.id %}" method="post" target="_blank">
+    {% csrf_token %}
+    <center><input type="submit" value="그래프확인" class="btn btn-outline-secondary"></center>
+</form>
+<br><br>
+{% endfor %}
+<script src="{% static 'chart.js' %}"></script>
+</body>
+</html>

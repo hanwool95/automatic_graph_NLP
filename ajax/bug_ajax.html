@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% load static %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+
+{% for data in graph_list %}
+{{ data.comments }}<br>
+    <button name="ajaxButton" id="{{data.id}}" type="button" value="{{data.id}}">그래프 확인</button>
+<br><br>
+{% endfor %}
+<script>
+
+    $("[id^=btn]").on('click', function(event) {
+        var id = $(this).attr("id");
+        var number = id.replace("btn", "");
+        alert(number)
+    });
+
+(function() {
+  var httpRequest;
+    for (var i=0;i<document.getElementsByName('ajaxButton').length;i++){
+            var x = document.getElementsByName('ajaxButton')[i].value;
+            document.getElementsByName('ajaxButton')[i].addEventListener('click', makeRequest(x));
+    }
+  function makeRequest(x) {
+    httpRequest = new XMLHttpRequest();
+    var site = "http://127.0.0.1:8000/graph/specific/";
+    var sitename = site+x;
+
+    if(!httpRequest) {
+      alert('XMLHTTP 인스턴스를 만들 수가 없어요 ㅠㅠ');
+      return false;
+    }
+    httpRequest.onreadystatechange=alertContents;
+    httpRequest.open('GET', sitename, true);
+    httpRequest.send();
+  }
+
+  function alertContents() {
+    if (httpRequest.readyState === XMLHttpRequest.DONE) {
+      if (httpRequest.status === 200) {
+        alert(httpRequest.responseText);
+      } else {
+        alert('request에 뭔가 문제가 있어요.');
+      }
+    }
+  }
+})();
+</script>
+</body>
+</html>
