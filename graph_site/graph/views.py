@@ -1,8 +1,9 @@
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from django.views.generic import View
-from django.shortcuts import render, HttpResponse
-from .models import Graph
+from django.shortcuts import render, HttpResponse, redirect
+from .models import Graph, Comment
+from .forms import CommentForm
 import datetime
 from .data_sorting import date_list, case_dict, death_dict
 import matplotlib.pyplot as plt
@@ -56,6 +57,14 @@ def string_to_date(string):
     x = x.replace("]", "")
     x_list = x.split(',')
     return x_list
+"""
+def postcreate(request):
+    if request.method == 'POST':
+        form = PostForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect()
+"""
 
 @csrf_exempt
 def chart_bar(request):
@@ -183,3 +192,24 @@ def graph_specific(request, id):
     plt.clf()
 
     return render(request, "graph/chart_detail.html", {'graph_list': graph_list, 'graph':q})
+
+
+#https://0ver-grow.tistory.com/963?category=964612 댓글작성 로직 출처
+def article(request, post_id):
+    post_detail = '실험용 기사 기사 내용 들어갈 부분 실험 용'
+    comment_form = CommentForm()
+    comment_list =Comment.objects.filter(post_id=post_id)
+
+    return render(request, 'graph/article.html', {'post_detail': post_detail, 'comment_form': comment_form,
+                                            'post_id': post_id, 'comment_list':comment_list})
+
+def new_comment(request, post_id):
+    filled_form = CommentForm(request.POST)
+    print(filled_form)
+    if filled_form.is_valid():
+        finished_form = filled_form.save(commit=False)
+        Comment(comment=finished_form, post_id=post_id).save()
+        #finished_form.save()
+    return redirect('graph:article', post_id)
+
+

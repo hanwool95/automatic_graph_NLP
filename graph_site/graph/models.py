@@ -17,3 +17,11 @@ class Graph(models.Model):
     x_axle = models.CharField(max_length=200)
     y_axle = models.CharField(max_length=200)
     pub_date = models.CharField(max_length=200)
+
+class Comment(models.Model):
+    comment = models.TextField()
+    date = models.DateTimeField(auto_now_add=True)
+    post_id = models.IntegerField(default=0)
+
+    def __str__(self):
+        return self.comment

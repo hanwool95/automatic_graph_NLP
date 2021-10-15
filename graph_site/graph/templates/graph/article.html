@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+현재 기사 아이디: {{ post_id }}<br><br>
+{{ post_detail }}<br><br>
+
+(댓글란)<br>
+{% for comment in comment_list %}
+    {{ comment.comment }}<br>
+{% endfor %}
+<form method="POST" action="{% url 'graph:new_comment' post_id %}">
+    {% csrf_token %}
+    {{ comment_form }}
+    <input type="submit" value="댓글 입력">
+</form>
+
+
+
+</body>
+</html>
